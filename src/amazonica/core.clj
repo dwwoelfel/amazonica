@@ -687,11 +687,11 @@
       (if (= clazz TransferManager)
           (TransferManager. (candidate-client AmazonS3Client args))
           (encryption-client (:encryption (apply hash-map (:args args)))
-                             (or (:credential args) @credential)
+                             (merge @credential (:credential args))
                                  (:client-config args)))
       (amazon-client
         clazz
-        (or (:credential args) @credential)
+        (merge @credential (:credential args))
         (:client-config args))))
 
 (defn- fn-call
